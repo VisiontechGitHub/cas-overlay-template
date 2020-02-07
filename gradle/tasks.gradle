@@ -13,9 +13,12 @@ buildscript {
         mavenLocal()
         mavenCentral()
         jcenter()
-		maven {
-			url "https://mvn.visiontech.cloud/artifactory/all/"
-		}
+        maven {
+                url "https://mvn.visiontech.cloud/artifactory/all/"
+        }
+        maven {
+                url "https://mvn.internal.visiontech.cloud/artifactory/all/"
+        }
         maven {
             url "https://oss.sonatype.org/content/repositories/snapshots"
             mavenContent {
