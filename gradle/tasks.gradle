@@ -14,6 +14,9 @@ buildscript {
         mavenCentral()
         jcenter()
         maven {
+            url "https://repository.jboss.org/nexus/content/repositories/public/"
+        }
+        maven {
             url "https://oss.sonatype.org/content/repositories/snapshots"
             mavenContent {
                 snapshotsOnly()
