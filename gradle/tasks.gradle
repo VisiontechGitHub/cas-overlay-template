@@ -13,9 +13,7 @@ buildscript {
         mavenLocal()
         mavenCentral()
         jcenter()
-        maven {
-            url "https://repository.jboss.org/nexus/content/repositories/public/"
-        }
+        maven { url "https://repo.spring.io/libs-snapshot" }
         maven {
             url "https://oss.sonatype.org/content/repositories/snapshots"
             mavenContent {
