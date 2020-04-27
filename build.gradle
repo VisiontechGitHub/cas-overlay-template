@@ -4,9 +4,18 @@ buildscript {
         gradlePluginPortal()
         mavenCentral()
         jcenter()
-        maven { url "https://repo.spring.io/libs-milestone" }
-        maven { url "https://repo.spring.io/libs-snapshot" }
-        maven { url "https://plugins.gradle.org/m2/" }
+        maven { 
+            url "https://repo.spring.io/libs-milestone" 
+            mavenContent { releasesOnly() }
+        }
+        maven { 
+            url "https://repo.spring.io/libs-snapshot" 
+            mavenContent { snapshotsOnly() }
+        }
+        maven { 
+            url "https://plugins.gradle.org/m2/" 
+            mavenContent { releasesOnly() }
+        }
     }
     dependencies {
         classpath "de.undercouch:gradle-download-task:${project.gradleDownloadTaskVersion}"
@@ -21,11 +30,26 @@ repositories {
     mavenLocal()
     mavenCentral()
     jcenter()
-    maven { url "https://oss.sonatype.org/content/repositories/snapshots" }
-    maven { url "https://build.shibboleth.net/nexus/content/repositories/releases/" }
-    maven { url "https://repo.spring.io/milestone/" }
-    maven { url "https://repo.spring.io/snapshot/" }
-    maven { url "https://oss.jfrog.org/artifactory/oss-snapshot-local" }
+    maven { 
+        url "https://oss.sonatype.org/content/repositories/snapshots" 
+        mavenContent { snapshotsOnly() }
+    }
+    maven { 
+        mavenContent { releasesOnly() }
+        url "https://build.shibboleth.net/nexus/content/repositories/releases/" 
+    }
+    maven { 
+        mavenContent { releasesOnly() }
+        url "https://repo.spring.io/milestone/" 
+    }
+    maven { 
+        url "https://repo.spring.io/snapshot/" 
+        mavenContent { snapshotsOnly() }
+    }
+    maven { 
+        mavenContent { snapshotsOnly() }
+        url "https://oss.jfrog.org/artifactory/oss-snapshot-local" 
+    }
 }
 
 def casServerVersion = project.'cas.version'
@@ -47,15 +71,15 @@ apply from: rootProject.file("gradle/dockerjib.gradle")
 
 dependencies {
     // Other CAS dependencies/modules may be listed here...
-    // compile "org.apereo.cas:cas-server-support-json-service-registry:${casServerVersion}"
-    compile "org.apereo.cas:cas-server-core-authentication:${casServerVersion}"
-    compile "org.apereo.cas:cas-server-support-redis-ticket-registry:${casServerVersion}"
-    compile "org.apereo.cas:cas-server-support-json-service-registry:${casServerVersion}"
-    compile "org.apereo.cas:cas-server-support-jdbc:${casServerVersion}"
-    compile "org.apereo.cas:cas-server-support-jdbc-drivers:${casServerVersion}"
-    compile "org.apereo.cas:cas-server-support-rest:${casServerVersion}"
-    compile "org.apereo.cas:cas-server-support-rest-tokens:${casServerVersion}"
-    compile "org.apereo.cas:cas-server-support-token-tickets:${casServerVersion}"
+    // implementation "org.apereo.cas:cas-server-support-json-service-registry:${casServerVersion}"
+    implementation "org.apereo.cas:cas-server-core-authentication:${casServerVersion}"
+    implementation "org.apereo.cas:cas-server-support-redis-ticket-registry:${casServerVersion}"
+    implementation "org.apereo.cas:cas-server-support-json-service-registry:${casServerVersion}"
+    implementation "org.apereo.cas:cas-server-support-jdbc:${casServerVersion}"
+    implementation "org.apereo.cas:cas-server-support-jdbc-drivers:${casServerVersion}"
+    implementation "org.apereo.cas:cas-server-support-rest:${casServerVersion}"
+    implementation "org.apereo.cas:cas-server-support-rest-tokens:${casServerVersion}"
+    implementation "org.apereo.cas:cas-server-support-token-tickets:${casServerVersion}"
 }
 
 tasks.findByName("jibDockerBuild")
@@ -65,7 +89,7 @@ tasks.findByName("jibDockerBuild")
 tasks.findByName("jib")
     .dependsOn(copyWebAppIntoJib, copyConfigIntoJib)
     .finalizedBy(deleteWebAppFromJib)
-    
+
 configurations.all {
     resolutionStrategy {
         cacheChangingModulesFor 0, "seconds"
