@@ -15,7 +15,6 @@ buildscript {
         jcenter()
         maven {
             url "https://repo.spring.io/libs-snapshot"
-            mavenContent { snapshotsOnly() }
         }
         maven {
             url "https://oss.sonatype.org/content/repositories/snapshots"
